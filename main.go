@@ -10,11 +10,11 @@ var model *DBConn
 func main() {
 
 	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+	c, cancel := context.WithCancel(ctx)
 
 	defer cancel()
 
-	db, err := model.Conn(ctx)
+	db, err := model.Conn(c)
 
 	if err != nil {
 		log.Fatalf("A configuração do banco de dados falhou: %v", err)
@@ -23,6 +23,6 @@ func main() {
 	model.Create(db, "Fazer a feira")
 
 	// Pegue um ObjectID do banco
-	//Ex: 5c105670e09ecd4b2281793b
-	//model.Remove(db, "object_id")
+	// Ex: 5c105670e09ecd4b2281793b
+	// model.Remove(db, "object_id")
 }

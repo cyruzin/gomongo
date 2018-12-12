@@ -73,10 +73,9 @@ func (conn *DBConn) Create(db *mongo.Database, t string) {
 	fmt.Println(res.InsertedID)
 }
 
-// Remove elimina uma tarefa tarefa da coleção.
+// Remove elimina uma tarefa da coleção.
 // Aceita um ID como parâmetro.
 func (conn *DBConn) Remove(db *mongo.Database, oID string) {
-	coll := db.Collection("todo")
 
 	id, err := primitive.ObjectIDFromHex(oID)
 
@@ -84,7 +83,7 @@ func (conn *DBConn) Remove(db *mongo.Database, oID string) {
 		log.Fatal(err)
 	}
 
-	res, err := coll.DeleteOne(
+	res, err := db.Collection("todo").DeleteOne(
 		ctx,
 		ObjectID{ID: id},
 	)
