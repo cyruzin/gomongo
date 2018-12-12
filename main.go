@@ -23,5 +23,5 @@ func main() {
 	//model.Create(db, "Teste")
 
 	// Pegue um ObjectID do banco
-	model.Remove(db, "5c0f01a3d7e18b364b64336f")
+	model.Remove(db, "5c105670e09ecd4b2281793b")
 }

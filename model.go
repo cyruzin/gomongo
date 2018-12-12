@@ -20,7 +20,7 @@ type DBConn struct {
 
 // ObjectID struct
 type ObjectID struct {
-	ID primitive.ObjectID
+	ID primitive.ObjectID `bson:"_id" json:"_id"`
 }
 
 // ToDo struct
@@ -46,7 +46,7 @@ func (conn *DBConn) Conn(ctx context.Context) (*mongo.Database, error) {
 		log.Fatalf("O cliente do Mongo não pôde se conectar ao contexto de segundo plano: %v", err)
 	}
 
-	todoDB := client.Database("go-docker")
+	todoDB := client.Database("gomongo")
 
 	return todoDB, nil
 }
@@ -61,7 +61,7 @@ func (conn *DBConn) Create(db *mongo.Database, t string) {
 		UpdatedAt: time.Now(),
 	}
 
-	res, err := db.Collection("todoApp").InsertOne(
+	res, err := db.Collection("todo").InsertOne(
 		ctx,
 		task,
 	)
@@ -76,6 +76,7 @@ func (conn *DBConn) Create(db *mongo.Database, t string) {
 // Remove elimina uma tarefa tarefa da coleção.
 // Aceita um ID como parâmetro.
 func (conn *DBConn) Remove(db *mongo.Database, oID string) {
+	coll := db.Collection("todo")
 
 	id, err := primitive.ObjectIDFromHex(oID)
 
@@ -83,7 +84,7 @@ func (conn *DBConn) Remove(db *mongo.Database, oID string) {
 		log.Fatal(err)
 	}
 
-	res, err := db.Collection("todoApp").DeleteOne(
+	res, err := coll.DeleteOne(
 		ctx,
 		ObjectID{ID: id},
 	)
