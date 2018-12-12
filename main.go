@@ -20,8 +20,9 @@ func main() {
 		log.Fatalf("A configuração do banco de dados falhou: %v", err)
 	}
 
-	//model.Create(db, "Teste")
+	model.Create(db, "Fazer a feira")
 
 	// Pegue um ObjectID do banco
-	model.Remove(db, "5c105670e09ecd4b2281793b")
+	//Ex: 5c105670e09ecd4b2281793b
+	//model.Remove(db, "object_id")
 }
